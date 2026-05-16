@@ -1,41 +1,42 @@
 # GoalTrack Portal
 
-Functional React demo for the AtomQuest Hackathon 1.0 in-house goal setting and tracking portal.
+GoalTrack Portal is a functional web-based goal setting and tracking system built for AtomQuest Hackathon 1.0. It supports the complete employee goal lifecycle: goal creation, manager approval, quarterly achievement updates, check-in documentation, reporting, and HR/Admin governance.
 
-## Run locally
+## Live demo
 
-```bash
-npm install
-npm run dev
-```
+https://goal-tracker-portal.vercel.app/
 
-PowerShell users with script execution disabled can use:
+## Demo access
 
-```bash
-npm.cmd run dev
-```
+No separate login is required for the hackathon demo. Use the in-app role switcher to test each journey.
 
-Production build:
+| Role | Demo users | Main actions |
+| --- | --- | --- |
+| Employee | Aarav Mehta, Nisha Rao, Kabir Sen | Create goals, validate weightage, submit goals, update quarterly actuals |
+| Manager | Priya Iyer, Rahul Das | Review goals, edit submitted weightages, approve or return goals, complete check-ins, push shared KPIs |
+| Admin / HR | Ananya Kapoor | Monitor completion, unlock goal sheets, review audit logs, export reports, view analytics |
 
-```bash
-npm.cmd run build
-node serve-dist.cjs
-```
+## Tech stack
 
-## Demo journeys
+| Area | Technology |
+| --- | --- |
+| Frontend | React.js, JavaScript, JSX |
+| Styling | HTML, CSS |
+| Build tool | Vite |
+| Package manager | npm |
+| Deployment | Vercel |
+| Version control | Git, GitHub |
 
-- Employee: switch to Employee, choose Aarav/Nisha/Kabir, create goals, validate 100% total weightage, submit goals, and update quarterly actuals.
-- Manager: switch to Manager, review team goal sheets, edit submitted weightages inline, approve or return for rework, complete quarterly check-ins, and push a shared KPI.
-- Admin: switch to Admin, view completion dashboard, unlock approved sheets as an exception, inspect audit log, and review distribution analytics.
+## Key features
 
-## Requirement coverage
-
-- Goal creation with thrust area, title, description, UoM, target, status, actuals, and weightage.
-- Validation for total weightage = 100%, minimum 10% per goal, and maximum 8 goals.
-- L1 approval workflow with inline manager edits, return for rework, and locked goals after approval.
-- Shared goals where linked actual achievement updates sync across recipients.
-- Quarterly check-in windows, planned vs actual tracking, structured manager comments, and progress score formulas for Min, Max, Timeline, and Zero UoMs.
-- Admin governance with completion dashboard, CSV export, audit trail, unlock exception handling, and analytics-style distribution chart.
+- Employee goal creation with thrust area, title, description, UoM, target, status, actuals, and weightage.
+- Validation rules for total weightage = 100%, minimum 10% per goal, and maximum 8 goals per employee.
+- L1 manager approval workflow with inline weightage editing, return for rework, and locked goals after approval.
+- Shared departmental KPIs where linked achievement updates sync across recipients.
+- Quarterly achievement tracking with planned vs actual progress.
+- Progress scoring for Min, Max, Timeline, and Zero UoM types.
+- Structured manager check-in comments for each quarter.
+- Admin dashboard for completion tracking, exception unlocks, audit logs, analytics, and CSV export.
 
 ## BRD schedule
 
@@ -49,6 +50,61 @@ The portal follows the required goal cycle windows:
 | Q3 Check-in | January | Planned vs actual progress update |
 | Q4 / Annual | March / April | Final achievement capture |
 
+## How the scoring works
+
+| UoM type | Meaning | Score logic |
+| --- | --- | --- |
+| Min | Higher is better, such as revenue or leads | Achievement / Target |
+| Max | Lower is better, such as cost or turnaround time | Target / Achievement |
+| Timeline | Date-based completion | 100% if completed on or before deadline, otherwise 0% |
+| Zero | Zero equals success, such as safety incidents | 100% if actual is 0, otherwise 0% |
+
+Scores are weighted by each goal's weightage to calculate overall progress.
+
+## Run locally
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+PowerShell users with script execution disabled can use:
+
+```bash
+npm.cmd run dev
+```
+
+Create a production build:
+
+```bash
+npm.cmd run build
+```
+
+Serve the production build locally:
+
+```bash
+node serve-dist.cjs
+```
+
 ## Architecture
 
-The hackathon demo is a single-page React application with seeded in-memory data for fast evaluation and no hosting cost. State transition functions are grouped around API-like actions, so a future backend can replace local state with REST or serverless endpoints while keeping the UI flow intact. Recommended production path: React static hosting, Node/serverless API, relational database, Microsoft Entra ID SSO, and notification workers for email/Teams reminders.
+The hackathon demo is a single-page React application with seeded in-memory data for fast evaluation and low hosting cost. The UI state transitions are grouped around API-like actions, so a backend can later replace the local state without changing the core user experience.
+
+Recommended production architecture:
+
+- React static frontend hosted on Vercel or similar static hosting.
+- Node.js or serverless backend API for users, goals, approvals, check-ins, reports, and audit logs.
+- Relational database for employee hierarchy, goal sheets, quarterly actuals, check-in comments, and change history.
+- Microsoft Entra ID for SSO and role mapping.
+- Email or Microsoft Teams notification workers for reminders, approvals, and escalations.
+
+## Submission summary
+
+The application satisfies the required Employee, Manager, and Admin journeys. It includes exportable reports, audit visibility, role-based workflows, goal validation, shared goals, quarterly check-ins, and a deployable live demo link.
