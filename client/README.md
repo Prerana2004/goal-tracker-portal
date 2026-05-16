@@ -37,6 +37,18 @@ node serve-dist.cjs
 - Quarterly check-in windows, planned vs actual tracking, structured manager comments, and progress score formulas for Min, Max, Timeline, and Zero UoMs.
 - Admin governance with completion dashboard, CSV export, audit trail, unlock exception handling, and analytics-style distribution chart.
 
+## BRD schedule
+
+The portal follows the required goal cycle windows:
+
+| Period | Window opens | Purpose |
+| --- | --- | --- |
+| Goal Setting | May | Goal creation, submission, and manager approval |
+| Q1 Check-in | July | Planned vs actual progress update |
+| Q2 Check-in | October | Planned vs actual progress update |
+| Q3 Check-in | January | Planned vs actual progress update |
+| Q4 / Annual | March / April | Final achievement capture |
+
 ## Architecture
 
 The hackathon demo is a single-page React application with seeded in-memory data for fast evaluation and no hosting cost. State transition functions are grouped around API-like actions, so a future backend can replace local state with REST or serverless endpoints while keeping the UI flow intact. Recommended production path: React static hosting, Node/serverless API, relational database, Microsoft Entra ID SSO, and notification workers for email/Teams reminders.
